@@ -13,7 +13,7 @@
 		<title>Vision - Jonathan Dayley</title>
 	</head>
 
-	<style>
+	<style id="styleMain">
 		/*The HTML tag should go! It's only for in-browser demos.*/
 		html {
 			font-size: 3em;
@@ -267,5 +267,32 @@
 		document.getElementById("copyright").innerText =
 			"© " + new Date().getFullYear() + " Jonathan Dayley";
 		document.getElementById("destructible").remove();
+	</script>
+
+	<script>
+		const isMobile =
+			/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+				navigator.userAgent
+			);
+		if (isMobile) {
+			const newMargin = "0.25in";
+			const captionTag = ".captionPart";
+			const newFontSize = "21px";
+			const main = document.getElementsByTagName("html")[0];
+			main.style.marginRight = newMargin;
+			main.style.marginLeft = newMargin;
+			const rules = document.getElementById("styleMain").sheet.cssRules;
+			for (let i = 0; i < rules.length; i++) {
+				if (rules[i].selectorText === captionTag) {
+					rules[i].style.fontSize = newFontSize;
+					break;
+				}
+			}
+			document.getElementById("narration").style.height = 0;
+			const hrs = document.getElementsByTagName("hr");
+			for (let j = 0; j <= hrs.length; j) {
+				hrs[j].remove();
+			}
+		}
 	</script>
 </html>
