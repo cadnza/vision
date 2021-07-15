@@ -1,0 +1,216 @@
+<html>
+
+    <style>
+        /*The HTML tag should go! It's only for in-browser demos.*/
+        html{
+            font-size: 3em;
+            color: white;
+            margin: 1in;
+            background: black;
+        }
+        .captionPart{
+            -webkit-transition: 1s;
+            -moz-transition: 1s;
+            -o-transition: 1s;
+            transition: 1s;
+            display: inline;
+            opacity: 0;
+            font-variant: small-caps;
+        }
+        .starter{
+            -webkit-transition-duration: 1s;
+            -moz-transition-duration: 1s;
+            -o-transition-duration: 1s;
+            transition: 1s;
+            text-align: center;
+            font-variant: small-caps;
+        }
+        .stringTestDiv{
+            opacity: 0;
+        }
+        .narration{
+            -webkit-transition: height 1s;
+            -moz-transition: height 1s;
+            -o-transition: height 1s;
+            transition: height 1s;
+        }
+        audio{
+            width: 100%;
+        }
+    </style>
+
+    <body onresize="setHeight()">
+
+    <audio controls id="vision" src="Vision.mp3"></audio>
+
+    <hr>
+
+    <div id="narration">
+        <div class="starter" id="starter"></div>
+        <div class="captionPart" id=1>#</div>
+        <div class="captionPart" id=2>#</div>
+        <div class="captionPart" id=3>#</div>
+        <div class="captionPart" id=4>#</div>
+        <div class="captionPart" id=5>#</div>
+        <div class="captionPart" id=6>#</div>
+        <div class="captionPart" id=7>#</div>
+    </div>
+
+    <br>
+    <hr>
+
+    </body>
+
+    <div class="stringTestDiv" id="stringTestDiv"></div>
+
+    <script>
+
+        var vision = document.getElementById("vision");
+
+        var transTime = 1.625;
+        var addedForClearing = 0;
+
+        var clearMargin = transTime + addedForClearing;
+
+        var allCaptions = document.getElementsByClassName("captionPart");
+
+        var testString1 = "And suddenly there was with the angel a multitude of the heavenly host praising God, and saying,<br>Glory to God in the highest, and on earth peace, good will toward men.";
+
+        var testString2 = "And it came to pass, as the angels were gone away from them into heaven, the shepherds said one to another, Let us now go even unto Bethlehem, and see this thing which is come to pass, which the Lord hath made known unto us.";
+
+        for(var i = 0; i < allCaptions.length; i++){
+            allCaptions[i].style.WebkitTransition = transTime + "s";
+            allCaptions[i].style.MozTransition = transTime + "s";
+            allCaptions[i].style.OTransition = transTime + "s";
+            allCaptions[i].style.transition = transTime + "s";
+        }
+
+        window.onload = setHeight();
+
+        window.addEventListener("resize",setHeight());
+
+
+        vision.ontimeupdate = function() {
+
+            if(vision.currentTime < 217){
+                var starter = document.getElementById("starter");
+                starter.style.opacity = 0;
+                setTimeout( function() {
+                    starter.innerHTML = "";
+                }, 1000);
+            }
+
+            newCap(1,"And it came to pass in those days,",1.5);
+            newCap(2,"that there went out a decree from C&#230;sar Augustus,",3.5);
+            newCap(3,"that all the world should be taxed.",5.5);
+            newCap(1,"And all went to be taxed,",9);
+            newCap(2,"every one into his own city.",10.5);
+            newCap(1,"And Joseph also went up from Galilee,",14.25);
+            newCap(2,"out of the city of Nazareth,",16.5);
+            newCap(3,"into Jud&#230;a, unto the city of David,",18.25);
+            newCap(4,"which is called Bethlehem;",20.5);
+            newCap(1,"To be taxed with Mary his espoused wife,",25.25);
+            newCap(2,"being great with child.",28);
+            newCap(1,"And so it was, that,",33);
+            newCap(2,"while they were there,",35);
+            newCap(3,"the days were accomplished that she should be delivered.",37);
+            newCap(1,"And she brought forth her firstborn son,",42);
+            newCap(2,"and wrapped him in swaddling clothes,",46);
+            newCap(3,"and laid him in a manger;",50);
+            newCap(4,"because there was no room for them in the inn.",53);
+                clearCaptions(57);
+            newCap(1,"And there were in the same country shepherds",66);
+            newCap(2,"abiding in the field,",69.5);
+            newCap(3,"keeping watch over their flock by night.",73);
+                clearCaptions(76);
+            newCap(1,"And, lo,",85.5);
+            newCap(2,"the angel of the Lord came upon them,",86.5);
+            newCap(3,"and the glory of the Lord shone round about them:",92);
+            newCap(4,"and they were sore afraid.",100);
+                clearCaptions(104);
+            newCap(1,"And the angel said unto them,",121);
+            newCap(2,"Fear not:",122);
+            newCap(3,"for, behold,",124);
+            newCap(4,"I bring you good tidings of great joy,",125);
+            newCap(5,"which shall be to all people.",127);
+            newCap(1,"For unto you is born this day",132);
+            newCap(2,"in the city of David",134.5);
+            newCap(3,"a <b>Saviour</b>,",137);
+            newCap(4,"which is <b>Christ the Lord</b>.",138.5);
+                clearCaptions(143);
+            newCap(1,"And this shall be a sign unto you;",146);
+            newCap(2,"Ye shall find the babe wrapped in swaddling clothes,",149);
+            newCap(3,"lying in a manger.",151);
+                clearCaptions(154);
+            newCap(1,"And suddenly there was with the angel a multitude of the heavenly host",161);
+            newCap(2,"praising God,",163.5);
+            newCap(3,"and saying,",165);
+            newCap(4,"<br>",165);
+            newCap(5,"Glory to God in the highest,",167.5);
+            newCap(6,"and on earth peace,",170.5);
+            newCap(7,"good will toward men.",172.5);
+                clearCaptions(175.5);
+            newCap(1,"And it came to pass,",184.5);
+            newCap(2,"as the angels were gone away from them into heaven,",185.5);
+            newCap(3,"the shepherds said one to another,",187.5);
+            newCap(4,"Let us now go even unto Bethlehem,",190);
+            newCap(5,"and see this thing which is come to pass,",192.5);
+            newCap(6,"which the Lord hath made known unto us.",194.5);
+            newCap(1,"And they came with haste,",199);
+            newCap(2,"and found Mary,",201);
+            newCap(3,"and Joseph,",202);
+            newCap(4,"and the babe",203);
+            newCap(5,"lying in a manger.",203.5);
+                clearCaptions(207);
+
+        }
+
+        vision.onended = function() {
+            document.getElementById("starter").innerHTML = "Luke 2:1-16";
+            document.getElementById("starter").style.opacity = 1;
+        }
+
+        function newCap(identifier,text,seconds){
+
+            if(seconds < 0){
+                seconds = 0;
+            }
+
+            if(identifier == 1){
+                if(vision.currentTime >= seconds - clearMargin){
+                    clearCaptions(seconds - clearMargin);
+                }
+            }
+
+            if(vision.currentTime >= seconds){
+
+                document.getElementById(identifier).innerHTML = text;
+                document.getElementById(identifier).style.opacity = 1;
+
+            }
+        }
+
+        function clearCaptions(seconds){
+            if(vision.currentTime >= seconds){
+                for(var n = 0; n < allCaptions.length; n++){
+                    allCaptions[n].style.opacity = 0;
+                }
+            }
+        }
+
+        function setHeight() {
+
+            document.getElementById("stringTestDiv").innerHTML = testString1;
+            var compare1 = document.getElementById("stringTestDiv").offsetHeight;
+
+            document.getElementById("stringTestDiv").innerHTML = testString2;
+            var compare2 = document.getElementById("stringTestDiv").offsetHeight;
+
+            document.getElementById("narration").style.height = Math.max(compare1,compare2) + "px";
+
+            document.getElementById("stringTestDiv").innerHTML = "";
+        }
+
+    </script>
+
+</html>
