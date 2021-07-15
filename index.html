@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta property="og:title" content="Vision - Jonathan Dayley" />
 		<meta
 			property="og:description"
@@ -16,8 +18,16 @@
 		html {
 			font-size: 3em;
 			color: white;
-			margin: 1in;
+			margin-right: 1in;
+			margin-left: 1in;
 			background: black;
+			font-variant: small-caps;
+		}
+		h1 {
+			text-align: center;
+			font-size: 24pt;
+			margin-top: 0.3in;
+			padding-top: 0px;
 		}
 		.captionPart {
 			-webkit-transition: 1s;
@@ -26,7 +36,6 @@
 			transition: 1s;
 			display: inline;
 			opacity: 0;
-			font-variant: small-caps;
 		}
 		.starter {
 			-webkit-transition-duration: 1s;
@@ -49,10 +58,23 @@
 		audio {
 			width: 100%;
 		}
+		#copyright {
+			position: absolute;
+			bottom: 0.3in;
+			left: 0;
+			right: 0;
+			text-align: center;
+			color: grey;
+			font-size: 16px;
+		}
 	</style>
 
 	<body onresize="setHeight()">
-		<audio controls id="vision" src="Vision.mp3"></audio>
+		<h1>Vision</h1>
+
+		<div>
+			<audio controls id="vision" src="Vision.mp3"></audio>
+		</div>
 
 		<hr />
 
@@ -69,6 +91,8 @@
 
 		<br />
 		<hr />
+
+		<div id="copyright"></div>
 	</body>
 
 	<div class="stringTestDiv" id="stringTestDiv"></div>
@@ -237,5 +261,11 @@
 
 			document.getElementById("stringTestDiv").innerHTML = "";
 		}
+	</script>
+
+	<script id="destructible">
+		document.getElementById("copyright").innerText =
+			"© " + new Date().getFullYear() + " Jonathan Dayley";
+		document.getElementById("destructible").remove();
 	</script>
 </html>
