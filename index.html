@@ -16,11 +16,35 @@
 	<style id="styleMain">
 		/*The HTML tag should go! It's only for in-browser demos.*/
 		html {
-			font-size: 3em;
-			color: white;
-			margin-right: 1in;
-			margin-left: 1in;
+			color: black;
 			background: black;
+			height: calc(100% - 1in);
+			font-family: Times;
+		}
+		body {
+			position: relative;
+			top: 0;
+			left: 0;
+			height: 100%;
+		}
+		a {
+			color: black;
+			text-decoration: none;
+		}
+		#inner {
+			margin-top: 0.25in;
+			margin-bottom: 0.25in;
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 7.5in;
+			padding: 0.25in;
+			background-color: bisque;
+			height: 100%;
+			border-radius: 3px;
+		}
+		h1,
+		.captionPart,
+		#copyright {
 			font-variant: small-caps;
 		}
 		h1 {
@@ -28,6 +52,29 @@
 			font-size: 24pt;
 			margin-top: 0.3in;
 			padding-top: 0px;
+			margin-bottom: 12px;
+		}
+		#metadata {
+			display: flex;
+			flex-direction: row;
+			margin-bottom: 0.25in;
+		}
+		#tempo,
+		#composer {
+			font-size: 18px;
+			width: 50%;
+		}
+		#tempo {
+			text-align: left;
+		}
+		#composer {
+			text-align: right;
+		}
+		#narrationBox {
+			margin-bottom: 0.25in;
+		}
+		hr {
+			border-color: black;
 		}
 		.captionPart {
 			-webkit-transition: 1s;
@@ -36,6 +83,7 @@
 			transition: 1s;
 			display: inline;
 			opacity: 0;
+			font-size: 24px;
 		}
 		.starter {
 			-webkit-transition-duration: 1s;
@@ -60,39 +108,60 @@
 		}
 		#copyright {
 			position: absolute;
-			bottom: 0.3in;
 			left: 0;
 			right: 0;
+			bottom: -0.25in;
 			text-align: center;
-			color: grey;
 			font-size: 16px;
 		}
 	</style>
 
 	<body onresize="setHeight()">
-		<h1>Vision</h1>
+		<div id="inner">
+			<h1>
+				<a
+					href="https://soundcloud.com/jonathandayley/vision"
+					target="_blank"
+				>
+					Vision
+				</a>
+			</h1>
 
-		<div>
-			<audio controls id="vision" src="Vision.mp3"></audio>
+			<div id="metadata">
+				<div id="tempo"><b>Flowing</b> 𝅘𝅥 ≈ 69</div>
+				<div id="composer">
+					<a
+						href="https://soundcloud.com/jonathandayley"
+						target="_blank"
+						>Jonathan Dayley</a
+					>
+				</div>
+			</div>
+
+			<div>
+				<audio controls id="vision" src="Vision.mp3"></audio>
+			</div>
+
+			<div id="narrationBox">
+				<hr />
+
+				<div id="narration">
+					<div class="starter" id="starter"></div>
+					<div class="captionPart" id="1">#</div>
+					<div class="captionPart" id="2">#</div>
+					<div class="captionPart" id="3">#</div>
+					<div class="captionPart" id="4">#</div>
+					<div class="captionPart" id="5">#</div>
+					<div class="captionPart" id="6">#</div>
+					<div class="captionPart" id="7">#</div>
+				</div>
+
+				<br />
+				<hr />
+			</div>
+
+			<div id="copyright"></div>
 		</div>
-
-		<hr />
-
-		<div id="narration">
-			<div class="starter" id="starter"></div>
-			<div class="captionPart" id="1">#</div>
-			<div class="captionPart" id="2">#</div>
-			<div class="captionPart" id="3">#</div>
-			<div class="captionPart" id="4">#</div>
-			<div class="captionPart" id="5">#</div>
-			<div class="captionPart" id="6">#</div>
-			<div class="captionPart" id="7">#</div>
-		</div>
-
-		<br />
-		<hr />
-
-		<div id="copyright"></div>
 	</body>
 
 	<div class="stringTestDiv" id="stringTestDiv"></div>
@@ -264,8 +333,11 @@
 	</script>
 
 	<script id="destructible">
-		document.getElementById("copyright").innerText =
-			"© " + new Date().getFullYear() + " Jonathan Dayley";
+		const link = document.createElement("a");
+		link.href = "https://soundcloud.com/jonathandayley";
+		link.target = "_blank";
+		link.innerText = "© " + new Date().getFullYear() + " Jonathan Dayley";
+		document.getElementById("copyright").appendChild(link);
 		document.getElementById("destructible").remove();
 	</script>
 
@@ -277,10 +349,9 @@
 		if (isMobile) {
 			const newMargin = "0.25in";
 			const captionTag = ".captionPart";
-			const newFontSize = "21px";
-			const main = document.getElementsByTagName("html")[0];
-			main.style.marginRight = newMargin;
-			main.style.marginLeft = newMargin;
+			const newFontSize = "18px";
+			const main = document.getElementById("inner");
+			main.style.margin = newMargin;
 			const rules = document.getElementById("styleMain").sheet.cssRules;
 			for (let i = 0; i < rules.length; i++) {
 				if (rules[i].selectorText === captionTag) {
@@ -290,9 +361,15 @@
 			}
 			document.getElementById("narration").style.height = 0;
 			const hrs = document.getElementsByTagName("hr");
-			for (let j = 0; j <= hrs.length; j) {
-				hrs[j].remove();
+			for (let j = 0; j <= hrs.length; j++) {
+				hrs[0].remove();
 			}
+			const composer = document.getElementById("composer");
+			composer.style.width = "100%";
+			composer.style.textAlign = "center";
+			document.getElementById("tempo").remove();
+			const h1 = document.getElementsByTagName("h1")[0];
+			h1.style.marginTop = "0.1in";
 		}
 	</script>
 </html>
